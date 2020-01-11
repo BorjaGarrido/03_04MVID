@@ -6,6 +6,9 @@
 #include "engine/shader.hpp"
 
 #include <iostream>
+#include <vector>
+
+using namespace std;
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
