@@ -72,10 +72,8 @@ void render(const Geometry& geom1, const Geometry& geom2, const Geometry& geom3,
     glm::mat4 proj = glm::perspective(glm::radians(camera.getFOV()), 800.0f / 600.0f, 0.1f, 100.0f);
 
     glm::mat4 model4 = glm::mat4(1.0f);
+    model4 = glm::translate(model4, glm::vec3(0.0f, -2.5f, -3.0f));
     model4 = glm::rotate(model4, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-
-    glm::mat4 view4 = glm::mat4(1.0f);
-    view4 = glm::translate(view4, glm::vec3(0.0f, -2.5f, -3.0f));
 
     shader.use();
 
@@ -89,10 +87,8 @@ void render(const Geometry& geom1, const Geometry& geom2, const Geometry& geom3,
 
 
     glm::mat4 model1 = glm::mat4(1.0f);
+    model1 = glm::translate(model1, glm::vec3(-2.0f, 0.0f, -15.0f));
     model1 = glm::rotate(model1, glm::radians(90.0f), glm::vec3(1.0f, 1.0f, 0.0f));
-
-    glm::mat4 view1 = glm::mat4(1.0f);
-    view1 = glm::translate(view1, glm::vec3(-2.0f, 0.0f, -15.0f));
 
     shader.set("model", model1);
     shader.set("view", view);
@@ -101,10 +97,8 @@ void render(const Geometry& geom1, const Geometry& geom2, const Geometry& geom3,
     geom1.render();
 
     glm::mat4 model2 = glm::mat4(1.0f);
+    model2 = glm::translate(model2, glm::vec3(0.5f, -0.5f, -3.0f));
     model2 = glm::rotate(model2, glm::radians(20.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-
-    glm::mat4 view2 = glm::mat4(1.0f);
-    view2 = glm::translate(view2, glm::vec3(0.5f, -0.5f, -3.0f));
 
     shader.set("model", model2);
     shader.set("view", view);
@@ -113,10 +107,8 @@ void render(const Geometry& geom1, const Geometry& geom2, const Geometry& geom3,
     geom2.render();
 
     glm::mat4 model3 = glm::mat4(1.0f);
+    model3 = glm::translate(model3, glm::vec3(-0.1f, -0.5f, -2.0f));
     model3 = glm::rotate(model3, glm::radians(-20.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-
-    glm::mat4 view3 = glm::mat4(1.0f);
-    view3 = glm::translate(view3, glm::vec3(-0.1f, -0.5f, -2.0f));
 
     shader.use();
 
