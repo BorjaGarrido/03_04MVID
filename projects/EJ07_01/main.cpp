@@ -10,6 +10,12 @@
 #include "engine/window.hpp"
 #include "engine/geometry/sphere.hpp"
 #include "engine/geometry/quad.hpp"
+#include "math.h"
+#include "iostream"
+
+#define PI 3.14159265
+
+using namespace std;
 
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 glm::vec3 lightPos(0.0f, 2.0f, 0.0f);
@@ -65,17 +71,21 @@ void onScrollMoved(float x, float y) {
     camera.handleMouseScroll(y);
 }
 
-void render(const Geometry& object, const Geometry& light, const Shader& s_phong, const Shader& s_light) {
+void render(float x, float y, const Geometry& object, const Geometry& light, const Shader& s_phong, const Shader& s_light) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glm::mat4 view = camera.getViewMatrix();
     glm::mat4 proj = glm::perspective(glm::radians(camera.getFOV()), 800.0f / 600.0f, 0.1f, 100.0f);
 
-
+    //lightPos.y = static_cast<float>(glfwGetTime())* glm::radians(45.0f);
     s_light.use();
 
-    glm::mat4 model = glm::mat4(1.0f);
-    model = glm::rotate(model, static_cast<float>(glfwGetTime())* glm::radians(45.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+    glm::mat4 model = glm::mat4(1.0f); 
+
+    //model = glm::rotate(model, static_cast<float>(glfwGetTime())* glm::radians(45.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+
+    lightPos.z = x;
+    lightPos.y = y;
     model = glm::translate(model, lightPos);
     model = glm::scale(model, glm::vec3(0.25f));
     s_light.set("model", model);
@@ -124,18 +134,27 @@ int main(int, char* []) {
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
 
-    Input::instance()->setKeyPressedCallback(onKeyPress);
-    Input::instance()->setMouseMoveCallback(onMouseMoved);
-    Input::instance()->setScrollMoveCallback(onScrollMoved);
+   
+
+    double lastTime = glfwGetTime(), timer = lastTime;
+    int grados = 0;
 
     while (window->alive()) {
+
         const float currentFrame = glfwGetTime();
         const float deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
 
+        float x = 2.0 * cos(grados);
+
+        float y = 2.0 * sin(grados);
+
+        grados++;
+
         handleInput(deltaTime);
-        render(sphere, sphere, s_phong, s_light);
-        window->frame();
+        render(x, y, sphere, sphere, s_phong, s_light);
+        window->frame(); 
+        
     }
 
     return 0;
