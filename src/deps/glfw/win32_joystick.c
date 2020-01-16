@@ -566,7 +566,7 @@ void _glfwDetectJoystickConnectionWin32(void)
             _glfwInputJoystick(js, GLFW_CONNECTED);
         }
     }
-
+    /*
     if (_glfw.win32.dinput8.api)
     {
         if (FAILED(IDirectInput8_EnumDevices(_glfw.win32.dinput8.api,
@@ -579,7 +579,7 @@ void _glfwDetectJoystickConnectionWin32(void)
                             "Failed to enumerate DirectInput8 devices");
             return;
         }
-    }
+    }*/
 }
 
 // Checks for joystick disconnection after DBT_DEVICEREMOVECOMPLETE
